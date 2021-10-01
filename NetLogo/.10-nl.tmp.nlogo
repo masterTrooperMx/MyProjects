@@ -71,7 +71,7 @@ to ejecuta-ciclo
   ;ask patches with [pcolor = black] [ask turtles-here[die]]
   ;; prepara la lista de especies, primero cuenta ovejas
   ask patches [
-    set n (count sheep-here)
+    set n (count turtles-here)
     set l_turtles_patch lput n l_turtles_patch
   ]
   set n_sheep sum [count sheep-here] of patches
@@ -87,9 +87,8 @@ to ejecuta-ciclo
   ;; si hay mas de 2 ovejas en un parche mátalas si la otra especie está
   ;; si X >= Y o X < Y
   ask patches with [pcolor = black] [
-    if ((count sheep-here) > 2) and ((count wolves-here) > 2) and
-       ((count sheep) >= (count wolves)) or ((count sheep) < (count wolves))
-     [  if(count sheep-here) < (count wolves-here) [
+    if ((count sheep-here) >= 1) and ((count wolves-here) >= 1)
+     [  if(count sheep-here) < (count wolves-here)
           ask sheep-here [die]
           ask wolves-here [die]
         ]
@@ -187,17 +186,6 @@ GRAPHICS-WINDOW
 ticks
 30.0
 
-MONITOR
-0
-0
-0
-0
-NIL
-NIL
-17
-1
-11
-
 BUTTON
 106
 16
@@ -224,7 +212,7 @@ no_parches
 no_parches
 2
 100
-50.0
+45.0
 1
 1
 NIL
@@ -316,7 +304,7 @@ TEXTBOX
 15
 522
 45
-Juego de \"poder competitivo\"
+Juego de \"aniquilación competitiva\"
 12
 0.0
 1
@@ -357,7 +345,7 @@ CHOOSER
 no_nuevos
 no_nuevos
 1 2 3 4 5 6 7 8 9 10
-1
+0
 
 MONITOR
 96
@@ -382,10 +370,10 @@ t_muertos
 11
 
 MONITOR
-208
-202
-280
-247
+207
+203
+279
+248
 NIL
 t_nuevos
 17
@@ -475,6 +463,28 @@ true
 PENS
 "nuevos" 1.0 0 -16777216 true "" "plot ((t_nuevos / n_total) * 100)"
 "muertos" 1.0 0 -7500403 true "" "plot ((t_muertos / n_total) * 100)"
+
+MONITOR
+18
+202
+103
+247
+NIL
+no_sheeps
+17
+1
+11
+
+MONITOR
+112
+203
+193
+248
+NIL
+no_wolves
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
